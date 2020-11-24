@@ -1,0 +1,268 @@
+﻿*, *::before, *::after 
+{
+    box-sizing: border-box;
+    font-family: NanumSquare;
+}
+
+:root
+{
+    --hue-neutral: 200; /* 색깔에 HSL 사용할거임, 따라서 hue 200으로 지정  */
+    --hue-wrong: 0; /* deep red color */
+    --hue-correct: 145; /* nice green color */
+}
+
+body
+{
+    --hue: var(--hue-neutral); /* 색칠위해서 css 변수 사용. 아무것도 선택안되면 default neutral 컬러 되게 위해 neutral써줌  */
+    padding: 0; 
+    margin: 0; 
+    display: flex; /* 퀴즈를 화면 정가운데 배치하기 위해 씀 */
+    width: 100vw; /* Means it's going to take up the entire width */
+    height: 100vh;
+    justify-content: center;
+    align-items: center; /* In order to push everything to the center of the screen */
+    background-color: hsl(var(--hue),100%,20%); /* hue, saturation, lightness*/
+
+}
+
+body.correct /* hue가 correct hue 될때 위해 씀 */
+{
+    --hue: var(--hue-correct);
+}
+
+body.wrong
+{
+    --hue: var(--hue-wrong);
+}
+
+.container /* 질문 박스 */
+{
+    width: 800px;
+    max-width:80%;
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0 20px 2px; /* x y blur spread*/
+}
+
+.btn-grid
+{
+    display: grid; /* To make displaying this easier*/
+    grid-template-columns: repeat(2, auto); /* 열 개수, auto width -> want it to be as large as it needs to be */
+    gap: 10px;
+    margin: 20px 0;  /* 20 on the top and bottom  and 0 on the web */
+}
+
+.question
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn /* 모든 btn에 적용될거임. */
+{
+    --hue: var(--hue-neutral);
+    border: 2px solid hsl(var(--hue),100%,30%); 
+    background-color: hsl(var(--hue),100%,50%);
+    border-radius: 5px;
+    padding: 5px 10px; /* 크게 할수록 버튼 크기 커짐 왜냐면 margin은 이 클래스 바깥의 여백 결정, padding은 클래스 내부 여백 결정 */
+    color: white; /* 텍스트 컬러 */
+    outline: none;
+    transition: all .35s;
+}
+
+.btn:hover /* 마우스 갖다댈 때  발생하는 것 */
+{
+    border-color: black;
+}
+
+.btn.correct /* 그 btn 클래스에 . 붙이고 correct라 쓰면 html 스크립트에서 클래스 쓸 때 btn correct 이렇게 띄어쓰기로 써주면 됨 */
+{
+    --hue: var(--hue-correct);
+    color: black;
+}
+
+.btn.wrong
+{
+    --hue: var(--hue-wrong);
+ 
+}
+
+.start-btn, .next-btn, .reset-btn
+{
+    font-size: 1.54rem;
+    font-weight: bold;
+    padding: 10px 20px;
+    margin: 10px 10px;
+}
+
+.controls
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hide
+{
+    display: none;
+}
+
+/* -----------------------*/
+
+input[id="menuicon"]
+{
+    display: none;
+}
+
+input[id="menuicon"] + label
+{
+    display: block; /* div와 같은 block 요소, 영역 생김 */
+    width: 60px;
+    height: 40px;
+    position: fixed; /* absolute의 기준 잡을 수 있도록 포지션은 relative */
+    left: 1%;
+    top: 5%; /* 버튼 높이의 반 값만큼 뺌 */
+    transition: all .35s; /* 자연스러운 모션 */
+    cursor: pointer; /*이 영역에 마우스 갖다대면 마우스 모양 바뀜.*/
+    opacity: 0.9;
+}
+
+input[id = "menuicon"]:checked + label
+{
+    z-index:2;
+    left:300px;
+}
+
+input[id="menuicon"] + label span /* 3개의 span 일괄선택 */
+{
+    display: block; 
+    position: absolute; /* 포토샵의 레이어와 같은 속성 */
+    width: 100%;
+    height: 5px;
+    border-radius: 30px; /* 둥근테두리 속성 */
+    background: white; /* 요소 배경색 -> 검정 */
+    transition: all .35s; /* 모션 애니메이션 효과 */
+}
+
+input[id="menuicon"] + label span:nth-child(1)
+{
+    top: 0; /* position: absolute의 정렬위치값 = 상단 */
+}
+
+input[id="menuicon"] + label span:nth-child(2)
+{
+    top: 50%; /* position: absolute의 정렬위치값 = 중앙 : 근데 이거만 하면 이 가운데 span의 윗부분이 정렬위치값 중앙에 배치되서 전체적으르 좀 아래에 배치됨*/
+    transform: translateY(-50%); /* 따라서 가운데 정렬하려는 컨텐츠의 높이의 절반 아래로 당겨줌  */
+}
+
+input[id="menuicon"] + label span:nth-child(3)
+{
+    bottom: 0;  /* position: absolute의 정렬위치값 = 하단 */
+}
+
+input[id="menuicon"]:checked + label span:nth-child(1)
+{
+   top:50%;
+   transform:translateY(-50%) rotate(45deg);
+}
+
+input[id="menuicon"]:checked + label span:nth-child(2)
+{
+   opacity: 0; /* 투명도 */
+}
+
+input[id="menuicon"]:checked + label span:nth-child(3)
+{
+    bottom: 50%;
+    transform: translateY(50%) rotate(-45deg);
+}
+
+div[class= "sidebar"] /* 대괄호 안은 속성선택자. class가 sidebar인 것들 얘기하는것이니 .sidebar라고 해도 똑같음 */
+{
+    width: 300px;
+    height:100%;
+    background: white; /* 흰 색  */
+    position: fixed; /* absolute로 설정 시 화면 스크롤하면 같이 움직이지만 fixed 쓰면 html에 고정되기에 스크롤해도 위치 고정 */
+    top: 0;
+    left: -300px; /* 사이드바의 넓이값. 실제로는 있지만 화면에는 안보임. 화면 바깥에 위치해있다가 버튼누르면 화면 안으로 들어오는 구조 */
+    z-index: 1; /* order layer */
+    transition: all .35s;
+    opacity: 0.9;
+}
+
+input[id = "menuicon"]:checked + label + div /* :chekced -> input 요소에 체크가 되었을 때 / 그리고 인접요소선택자 + 쓰면 html에서 input 바로 옆에 있는 label과 div 인식됨.*/
+{ /* 보니까 이런식으로 인접요소 + 하면 여기서는 div가 선택되는것 같음. */
+    left: 0;
+}
+
+/*.menubtn-grid {
+    display: grid;*/ /* To make displaying this easier*/
+    /*grid-template-columns: repeat(1, auto);
+    gap: 30px;*/
+    /*margin: 50px 0;*/ /* the top and bottom  and 0 on the web */
+    
+/*}*/
+
+.menubtn:hover 
+{
+    border-color: white;
+}
+
+input[id="menuicon"] + label + div + div button 
+{
+    position: fixed;
+    left: 0%;
+    width: 180px;
+    height: 50px;
+    border: 3px solid black;
+    background: #f5cca2;
+    border-radius: 15px;
+    outline: none;
+    z-index: 3;
+    transition: all .35s;
+    font-size: 20px;
+    left: -240px;
+}
+
+input[id="menuicon"] + label + div+ div button:nth-child(1)
+{
+    top:10%;
+}
+
+input[id="menuicon"] + label + div+ div button:nth-child(2)
+{
+    top:30%;
+}
+
+input[id="menuicon"] + label + div+ div button:nth-child(3)
+{
+    top:50%;
+}
+
+input[id="menuicon"]:checked + label + div+ div button
+{
+    left: 60px;
+}
+
+.knowledge
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    font-weight: bold;
+
+}
+
+.knowledge-content 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
+
+

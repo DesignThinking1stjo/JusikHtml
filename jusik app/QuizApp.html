@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Quiz App</title>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link href="styles.css" rel="stylesheet">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <input type="checkbox" id="menuicon"> <!-- 클릭해서 변화되는 변화값 사용하는것이니 input 태그 사용 -->
+    <label for="menuicon"> <!-- for 속성으로 input의 id값을 for 속성값 일치시키면 input과 id 연결되어 라벨 클릭해도 input 체크, 해제됨-->
+        <span></span> <!-- 줄 세개 있는 메뉴이기에 span 세개 만듬 -->
+        <span></span>
+        <span></span>
+    </label> <!-- label 바로 다음에 sidebar div 나오니까 sidebar 선택하려면 인접요소 선택자인 + 이용해 label + div{} 사용 가능 -->
+    <div class="sidebar"> <!-- 지금 input, label, sidebar div 연속적으로 붙어있으니 인접요소 선택자 + 써서 연달아 선택해 전과 후의 변화로 효과 주기 위해 +사용 -->
+    </div>
+    <div id="menu-buttons" class="menubtn">
+        <button id="menu-question" class="menubtn quiz-menu">퀴즈</button>
+        <button id="menu-knowledge" class="menubtn knowledge-menu">사전</button>
+        <button id="menu-bookmark" class="menubtn bookmark-menu">북마크</button>
+    </div>
+    <!---------------메뉴 바 ----------------->
+    <div class="container">
+        <div id="question-container" class="hide"> <!-- This is hidden by default -->
+            <div id="question" class="question">Question</div>
+            <div id="answer-buttons" class="btn-grid"> <!-- 여 안에다 버튼만들기 -->
+                <button class="btn">Answer 1</button>   
+                <button class="btn">Answer 2</button>
+                <button class="btn">Answer 3</button>
+                <button class="btn">Answer 4</button>
+            </div>
+        </div>
+        <div id="knowledge-container" class="hide">
+            <div id="knowledge" class="knowledge">Knowledge Section</div>
+            <br/>
+            <br />
+            <br />
+            <div id="knowledge-content" class="knowledge-content">이러이러한 내용이다 </div>
+            <br />
+            <br />
+
+        </div>
+        <div class="controls">
+            <button id="ezquizstart-btn" class="start-btn btn hide">쉬움 난이도</button>
+            <button id="medquizstart-btn" class="start-btn btn hide">중간 난이도</button>
+            <button id="expquizstart-btn" class="start-btn btn hide">고수 난이도</button>
+            <button id="next-btn" class="next-btn btn hide">Next</button> <!-- Hidden by default so hide 클래스 내에 써줌 -->
+            <button id="reset-btn" class="reset-btn btn hide">Back to main</button>
+
+            <button id='ezknowledgestart-btn' class="start-btn btn ">쉬운 지식</button>
+            <button id='medknowledgestart-btn' class="start-btn btn ">중간 지식</button>
+            <button id='expknowledgestart-btn' class="start-btn btn ">높은 지식</button>
+            <button id="nextknowledge-btn" class="next-btn btn hide">Next</button>
+            <button id="resetknowledge-btn" class="reset-btn btn hide">Back to main</button>
+        </div>
+
+    </div>
+</body>
+
+
+</html>
